@@ -58,7 +58,7 @@ namespace WindowsFormsApp1
             try
             {
                 pinger = new Ping();
-                PingReply reply = pinger.Send(nameOrAddress);
+                PingReply reply = pinger.Send(nameOrAddress, 1);
                 pingable = reply.Status == IPStatus.Success;
             }
             catch (PingException)
@@ -83,6 +83,7 @@ namespace WindowsFormsApp1
             //List < String > lst = new List<String>();
             String[] ip_parts;
             int Start;
+            int oldStart;
             if (ip.Length == 0)
             {
                 return;
@@ -93,7 +94,8 @@ namespace WindowsFormsApp1
                 return;
             }
             Start = int.Parse(ip_parts[3]);
-            for (Start++; Start <= 20; Start++)
+            oldStart = Start;
+            for (Start++; Start <= oldStart + 10; Start++)
             {
                 String tmpIP = ip_parts[0] + "." + ip_parts[1] + "." + ip_parts[2] + "." + Start.ToString();
                 if (PingHost(tmpIP))
