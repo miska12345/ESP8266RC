@@ -11,7 +11,7 @@ Please take a few minutes to review the overview below before diving into the co
 
 NodeMCU software is a simple remote control application for the ESP8266 module. It supports both Connect by IP and Scan Nearby and uses Socket for remote communication.
 
-The application has not been tested for memory footage, security vulnerbility, and other runtime exceptions.
+Be aware: The application has not been tested for memory footage, security vulnerbility, and other runtime exceptions.
 
 ## Arduino code
 
@@ -26,11 +26,7 @@ The remote_control.ino file contain source code for the ESP8266 RC car.
 * You will need at least [VS 2017](https://visualstudio.microsoft.com/downloads/) installed
 * You will need Arduino IDE for compilation and uploading
 
-## Coding Guidance
-
-Please review these brief docs below relating to our coding standards etc.
-
-> 👉 If you find something missing from these docs, feel free to contribute to any of our documentation files anywhere in the repository (or make some new ones\!)
+> 👉 If you find something missing from these files, feel free to contribute to any of my files anywhere in the repository (or make some new ones\!)
 
 ## Open Source License
 
