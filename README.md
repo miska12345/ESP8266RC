@@ -2,6 +2,7 @@ Welcome\! This repository contains the source code for:
 
   - NodeMCU Software
   - ESP8266 RC
+  - Android APP
 
 # NodeMCU Software Overview
 
@@ -17,6 +18,12 @@ Be aware: The application has not been tested for memory footage, security vulne
 
 The remote_control.ino file contain source code for the ESP8266 RC car.
 
+## Android App
+
+The app is provided as a reference for how similar ideas can be applied for Android app development.
+
+Be aware: The app has not been fully tested, it is possible that the code wouldn't work "as is."
+
 # Getting Started
 
 ## Prerequisites
@@ -24,7 +31,8 @@ The remote_control.ino file contain source code for the ESP8266 RC car.
 * You must be running Windows 1903 (build >= 10.0.18362.0) or above in order to run NodeMCU Software
   - **As of May 2019** this build is only available through Windows Insider Program. You may register and configure Insider Program through your device's system settings.
 * You will need at least [VS 2017](https://visualstudio.microsoft.com/downloads/) installed
-* You will need Arduino IDE for compilation and uploading
+* You will need Arduino IDE for compilation and uploading Arduino code
+* You will need Android Studio for the Android app
 
 > 👉 If you find something missing from these files, feel free to contribute to any of my files anywhere in the repository (or make some new ones\!)
 
