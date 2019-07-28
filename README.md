@@ -22,8 +22,6 @@ The remote_control.ino file contain source code for the ESP8266 RC car.
 
 The app is provided as a reference for how similar ideas can be applied for Android app development.
 
-Be aware: The app has not been fully tested, it is possible that the code wouldn't work "as is."
-
 # Getting Started
 
 ## Prerequisites
