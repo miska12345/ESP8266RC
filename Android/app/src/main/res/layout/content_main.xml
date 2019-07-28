@@ -21,6 +21,7 @@
         android:gravity="center"
         android:hint="IP Address"
         android:inputType="textPersonName"
+        android:text="192.168.0.15"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,9 +90,11 @@
         android:gravity="center"
         android:hint="Port"
         android:inputType="textPersonName"
+        android:text="12345"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_ip" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
