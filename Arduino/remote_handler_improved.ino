@@ -33,8 +33,8 @@ typedef uint8_t GPIOMatrix[2][2];
 #define MIN_FREQUENCY 100
 #define AUDIO_CHANGE_INTERVAL 800
 // WiFi configuration
-static const char *wfName = "LINT";         // Your Wi-Fi name
-static const char *wfPass = "wassup123";    // Your Wi-Fi password
+static const char *wfName = "NAME";         // Your Wi-Fi name
+static const char *wfPass = "PASSWORD";    // Your Wi-Fi password
 
 // InsCode Definition
 // InsCode are all instruction send by remote client (i.e. App)
