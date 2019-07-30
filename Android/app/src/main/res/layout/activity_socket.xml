@@ -30,4 +30,15 @@
         android:layout_margin="@dimen/fab_margin"
         app:srcCompat="@android:drawable/ic_dialog_email" />
 
+    <io.github.controlwear.virtual.joystick.android.JoystickView xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/joystick1"
+        android:layout_width="300dp"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="80dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/inkcircle"
+        custom:JV_buttonImage="@drawable/smile"
+        custom:JV_fixedCenter="true" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -7,6 +7,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+
+import io.github.controlwear.virtual.joystick.android.JoystickView;
 
 public class SocketAct extends AppCompatActivity {
 
@@ -25,76 +28,44 @@ public class SocketAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
+        JoystickView joy;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_socket);
 
         server = getIntent().getStringExtra("Server");
         port = getIntent().getIntExtra("Port", -1);
 
+
         client = new TcpClient(server, port);
         client.connect();
 
-        Button forward = findViewById(R.id.button_forward);
-        forward.setOnTouchListener(new View.OnTouchListener() {
-
+        joy = findViewById(R.id.joystick1);
+        joy.setOnMoveListener(new JoystickView.OnMoveListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-                    client.send(INS_FORWARD_PRESSED);
-                    return true;
-                } else if (event.getAction() == MotionEvent.ACTION_UP ) {
+            public void onMove(int angle, int strength) {
+                ((TextView)findViewById(R.id.label)).setText(angle + " | " + strength);
+                if (strength == 0) {
                     client.send(INS_NULL);
-                    return true;
+                } else if (0 <= angle && angle <= 180) {
+                    if (Math.abs(angle - 90) < 30) {
+                        client.send(INS_RIGHT_RELEASED);
+                        client.send(INS_FORWARD_PRESSED);
+                    } else if (angle < 90) {
+                        client.send(INS_RIGHT_PRESSED);
+                    } else {
+                        client.send(INS_LEFT_PRESSED);
+                    }
+                } else {
+                    if (Math.abs(angle - 270) < 25) {
+                        client.send(INS_RIGHT_RELEASED);
+                        client.send(INS_BACKWARED_PRESSED);
+                    } else if (angle < 270) {
+                        client.send(INS_LEFT_PRESSED);
+                    } else {
+                        client.send(INS_RIGHT_PRESSED);
+                    }
                 }
-                return false;
-            }
-        });
 
-        Button backward = findViewById(R.id.button_backward);
-        backward.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-                    client.send(INS_BACKWARED_PRESSED);
-                    return true;
-                } else if (event.getAction() == MotionEvent.ACTION_UP ) {
-                    client.send(INS_NULL);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        Button left = findViewById(R.id.button_right);
-        left.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-                    client.send(INS_LEFT_PRESSED);
-                    return true;
-                } else if (event.getAction() == MotionEvent.ACTION_UP ) {
-                    client.send(INS_LEFT_RELEASED);
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        Button right = findViewById(R.id.button_right);
-        right.setOnTouchListener(new View.OnTouchListener() {
-
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN ) {
-                    client.send(INS_RIGHT_PRESSED);
-                    return true;
-                } else if (event.getAction() == MotionEvent.ACTION_UP ) {
-                    client.send(INS_RIGHT_RELEASED);
-                    return true;
-                }
-                return false;
             }
         });
     }
