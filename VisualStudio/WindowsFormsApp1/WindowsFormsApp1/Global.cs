@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace WindowsFormsApp1
 {
+    /// <summary>
+    /// This class holds global variables for the NodeMCU program
+    /// </summary>
     public static class Global
     {
         public static bool HornEnabled = false;

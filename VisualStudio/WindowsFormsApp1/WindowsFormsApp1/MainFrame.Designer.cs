@@ -63,19 +63,21 @@
             this.metroPanel1.Controls.Add(this.metroButton2);
             this.metroPanel1.HorizontalScrollbarBarColor = true;
             this.metroPanel1.HorizontalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.HorizontalScrollbarSize = 10;
-            this.metroPanel1.Location = new System.Drawing.Point(23, 74);
+            this.metroPanel1.HorizontalScrollbarSize = 19;
+            this.metroPanel1.Location = new System.Drawing.Point(46, 142);
+            this.metroPanel1.Margin = new System.Windows.Forms.Padding(6);
             this.metroPanel1.Name = "metroPanel1";
-            this.metroPanel1.Size = new System.Drawing.Size(509, 243);
+            this.metroPanel1.Size = new System.Drawing.Size(1018, 467);
             this.metroPanel1.TabIndex = 1;
             this.metroPanel1.VerticalScrollbarBarColor = true;
             this.metroPanel1.VerticalScrollbarHighlightOnWheel = false;
-            this.metroPanel1.VerticalScrollbarSize = 10;
+            this.metroPanel1.VerticalScrollbarSize = 20;
             // 
             // metroLabel5
             // 
             this.metroLabel5.AutoSize = true;
-            this.metroLabel5.Location = new System.Drawing.Point(427, 91);
+            this.metroLabel5.Location = new System.Drawing.Point(854, 175);
+            this.metroLabel5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel5.Name = "metroLabel5";
             this.metroLabel5.Size = new System.Drawing.Size(38, 19);
             this.metroLabel5.TabIndex = 11;
@@ -85,16 +87,18 @@
             // 
             this.metroButton6.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("metroButton6.BackgroundImage")));
             this.metroButton6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.metroButton6.Location = new System.Drawing.Point(410, 19);
+            this.metroButton6.Location = new System.Drawing.Point(820, 37);
+            this.metroButton6.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton6.Name = "metroButton6";
-            this.metroButton6.Size = new System.Drawing.Size(75, 71);
+            this.metroButton6.Size = new System.Drawing.Size(150, 137);
             this.metroButton6.TabIndex = 10;
             this.metroButton6.UseSelectable = true;
             // 
             // metroLabel4
             // 
             this.metroLabel4.AutoSize = true;
-            this.metroLabel4.Location = new System.Drawing.Point(30, 196);
+            this.metroLabel4.Location = new System.Drawing.Point(60, 377);
+            this.metroLabel4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel4.Name = "metroLabel4";
             this.metroLabel4.Size = new System.Drawing.Size(58, 19);
             this.metroLabel4.TabIndex = 9;
@@ -103,7 +107,8 @@
             // metroLabel3
             // 
             this.metroLabel3.AutoSize = true;
-            this.metroLabel3.Location = new System.Drawing.Point(242, 196);
+            this.metroLabel3.Location = new System.Drawing.Point(484, 377);
+            this.metroLabel3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel3.Name = "metroLabel3";
             this.metroLabel3.Size = new System.Drawing.Size(67, 19);
             this.metroLabel3.TabIndex = 8;
@@ -112,7 +117,8 @@
             // metroLabel2
             // 
             this.metroLabel2.AutoSize = true;
-            this.metroLabel2.Location = new System.Drawing.Point(136, 196);
+            this.metroLabel2.Location = new System.Drawing.Point(272, 377);
+            this.metroLabel2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel2.Name = "metroLabel2";
             this.metroLabel2.Size = new System.Drawing.Size(65, 19);
             this.metroLabel2.TabIndex = 7;
@@ -121,7 +127,8 @@
             // metroLabel1
             // 
             this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(136, 90);
+            this.metroLabel1.Location = new System.Drawing.Point(272, 173);
+            this.metroLabel1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel1.Name = "metroLabel1";
             this.metroLabel1.Size = new System.Drawing.Size(59, 19);
             this.metroLabel1.TabIndex = 6;
@@ -131,9 +138,10 @@
             // 
             this.metroButton5.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("metroButton5.BackgroundImage")));
             this.metroButton5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.metroButton5.Location = new System.Drawing.Point(238, 122);
+            this.metroButton5.Location = new System.Drawing.Point(476, 235);
+            this.metroButton5.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton5.Name = "metroButton5";
-            this.metroButton5.Size = new System.Drawing.Size(75, 71);
+            this.metroButton5.Size = new System.Drawing.Size(150, 137);
             this.metroButton5.TabIndex = 5;
             this.metroButton5.UseSelectable = true;
             // 
@@ -141,9 +149,10 @@
             // 
             this.metroButton4.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("metroButton4.BackgroundImage")));
             this.metroButton4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.metroButton4.Location = new System.Drawing.Point(130, 122);
+            this.metroButton4.Location = new System.Drawing.Point(260, 235);
+            this.metroButton4.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton4.Name = "metroButton4";
-            this.metroButton4.Size = new System.Drawing.Size(75, 71);
+            this.metroButton4.Size = new System.Drawing.Size(150, 137);
             this.metroButton4.TabIndex = 4;
             this.metroButton4.UseSelectable = true;
             // 
@@ -151,9 +160,10 @@
             // 
             this.metroButton3.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("metroButton3.BackgroundImage")));
             this.metroButton3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.metroButton3.Location = new System.Drawing.Point(22, 122);
+            this.metroButton3.Location = new System.Drawing.Point(44, 235);
+            this.metroButton3.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton3.Name = "metroButton3";
-            this.metroButton3.Size = new System.Drawing.Size(75, 71);
+            this.metroButton3.Size = new System.Drawing.Size(150, 137);
             this.metroButton3.TabIndex = 3;
             this.metroButton3.UseSelectable = true;
             // 
@@ -163,16 +173,18 @@
             this.metroButton2.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("metroButton2.BackgroundImage")));
             this.metroButton2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.metroButton2.ForeColor = System.Drawing.Color.Red;
-            this.metroButton2.Location = new System.Drawing.Point(130, 19);
+            this.metroButton2.Location = new System.Drawing.Point(260, 37);
+            this.metroButton2.Margin = new System.Windows.Forms.Padding(6);
             this.metroButton2.Name = "metroButton2";
-            this.metroButton2.Size = new System.Drawing.Size(75, 71);
+            this.metroButton2.Size = new System.Drawing.Size(150, 137);
             this.metroButton2.TabIndex = 2;
             this.metroButton2.UseSelectable = true;
             // 
             // metroLabel6
             // 
             this.metroLabel6.AutoSize = true;
-            this.metroLabel6.Location = new System.Drawing.Point(23, 321);
+            this.metroLabel6.Location = new System.Drawing.Point(46, 617);
+            this.metroLabel6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel6.Name = "metroLabel6";
             this.metroLabel6.Size = new System.Drawing.Size(95, 19);
             this.metroLabel6.TabIndex = 2;
@@ -181,7 +193,8 @@
             // metroLabel7
             // 
             this.metroLabel7.AutoSize = true;
-            this.metroLabel7.Location = new System.Drawing.Point(406, 321);
+            this.metroLabel7.Location = new System.Drawing.Point(812, 617);
+            this.metroLabel7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.metroLabel7.Name = "metroLabel7";
             this.metroLabel7.Size = new System.Drawing.Size(46, 19);
             this.metroLabel7.TabIndex = 3;
@@ -191,7 +204,8 @@
             // 
             this.label_status.AutoSize = true;
             this.label_status.ForeColor = System.Drawing.Color.Green;
-            this.label_status.Location = new System.Drawing.Point(449, 322);
+            this.label_status.Location = new System.Drawing.Point(898, 619);
+            this.label_status.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_status.Name = "label_status";
             this.label_status.Size = new System.Drawing.Size(86, 19);
             this.label_status.TabIndex = 4;
@@ -200,7 +214,8 @@
             // label_server
             // 
             this.label_server.AutoSize = true;
-            this.label_server.Location = new System.Drawing.Point(111, 321);
+            this.label_server.Location = new System.Drawing.Point(222, 617);
+            this.label_server.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_server.Name = "label_server";
             this.label_server.Size = new System.Drawing.Size(29, 19);
             this.label_server.TabIndex = 5;
@@ -208,9 +223,10 @@
             // 
             // button_disconnect
             // 
-            this.button_disconnect.Location = new System.Drawing.Point(234, 320);
+            this.button_disconnect.Location = new System.Drawing.Point(468, 615);
+            this.button_disconnect.Margin = new System.Windows.Forms.Padding(6);
             this.button_disconnect.Name = "button_disconnect";
-            this.button_disconnect.Size = new System.Drawing.Size(75, 23);
+            this.button_disconnect.Size = new System.Drawing.Size(150, 44);
             this.button_disconnect.TabIndex = 6;
             this.button_disconnect.Text = "Disconnect";
             this.button_disconnect.UseSelectable = true;
@@ -218,9 +234,10 @@
             // 
             // button_extensions
             // 
-            this.button_extensions.Location = new System.Drawing.Point(315, 320);
+            this.button_extensions.Location = new System.Drawing.Point(630, 615);
+            this.button_extensions.Margin = new System.Windows.Forms.Padding(6);
             this.button_extensions.Name = "button_extensions";
-            this.button_extensions.Size = new System.Drawing.Size(75, 23);
+            this.button_extensions.Size = new System.Drawing.Size(150, 44);
             this.button_extensions.TabIndex = 7;
             this.button_extensions.Text = "Extensions";
             this.button_extensions.UseSelectable = true;
@@ -228,9 +245,9 @@
             // 
             // MainFrame
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(554, 356);
+            this.ClientSize = new System.Drawing.Size(1108, 685);
             this.Controls.Add(this.button_extensions);
             this.Controls.Add(this.button_disconnect);
             this.Controls.Add(this.label_server);
@@ -239,8 +256,10 @@
             this.Controls.Add(this.metroLabel6);
             this.Controls.Add(this.metroPanel1);
             this.KeyPreview = true;
+            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.Name = "MainFrame";
+            this.Padding = new System.Windows.Forms.Padding(40, 115, 40, 38);
             this.Resizable = false;
             this.ShowIcon = false;
             this.Text = "NodeMCU Controller";

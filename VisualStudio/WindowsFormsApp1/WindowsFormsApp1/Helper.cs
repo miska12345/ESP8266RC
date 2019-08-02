@@ -8,9 +8,22 @@ using System.Net.Sockets;
 using System.Net.NetworkInformation;
 namespace WindowsFormsApp1
 {
+    /// <summary>
+    /// This class provides the utility functions for the NodeMCU program.
+    /// It encomposes the TcpClient from .Net, and added a few functions for networking
+    /// related operations.
+    /// </summary>
     public static class Helper
     {
+        // This client object allows us to do socket operations
         private static TcpClient client = null;
+
+        /// <summary>
+        /// Establish TCP connection with the host server
+        /// </summary>
+        /// <param name="server">The host server's IPv4 address</param>
+        /// <param name="port">The port number where the host listen for incoming connections</param>
+        /// <returns>true iff a connection has been established</returns>
         public static bool Start(String server, int port)
         {
             try
@@ -18,12 +31,16 @@ namespace WindowsFormsApp1
                 client = new TcpClient(server, port);
                 return true;
             }
-            catch (SocketException ex)
+            catch (SocketException e)
             {
+                Console.WriteLine(e.ToString());
                 return false;
             }
         }
 
+        /// <summary>
+        /// Close the established connection, if any
+        /// </summary>
         public static void Close()
         {
             if (client != null)
@@ -33,6 +50,12 @@ namespace WindowsFormsApp1
             }
         }
 
+        /// <summary>
+        /// Send a String message to the host if a connection has been established
+        /// </summary>
+        /// <param name="content">The String to send</param>
+        /// <returns>true iff the message has been sent, false otherwise</returns>
+        /// <throws>ArgumentNullException if content == null</throws>
         public static bool Send(String content)
         {
             if (client == null)
@@ -43,13 +66,21 @@ namespace WindowsFormsApp1
                 throw new ArgumentNullException("content cannot be null");
             }
 
-            Byte[] bArray = Encoding.ASCII.GetBytes(content + '\r');
+            // Convert the given content into an array of bytes
+            // Notice the \r, this is the end-of-line character, we add this to ease parsing instructions
+            // on the ESP8266 module.
+            Byte[] bArray = Encoding.ASCII.GetBytes(content + '\r');  // Convert string to bytes
             NetworkStream stream = client.GetStream();
             stream.Write(bArray, 0, bArray.Length);
             stream.Flush();
             return true;
         }
 
+        /// <summary>
+        /// Ping the given host for response
+        /// </summary>
+        /// <param name="nameOrAddress">The host IPv4 address to ping</param>
+        /// <returns>true iff the host is online</returns>
         public static bool PingHost(string nameOrAddress)
         {
             bool pingable = false;
@@ -76,6 +107,12 @@ namespace WindowsFormsApp1
             return pingable;
         }
 
+        /// <summary>
+        /// Scans the nearby IPv4 addresses under the same network environment. Note that this functions
+        /// does a simple "look-ahead" from the machine's own IPv4 address, so it is not guaranteed that
+        /// all online networking devices be discovered.
+        /// </summary>
+        /// <param name="lst">A list where the result will be stored, each entry is a String, representing the Ipv4 address of the device</param>
         public static void ScanNearby(List<String> lst)
         {
             String ip = GetLocalIPV4();
@@ -105,6 +142,10 @@ namespace WindowsFormsApp1
             }
         }
 
+        /// <summary>
+        /// Get the IPv4 address of this machine
+        /// </summary>
+        /// <returns>The String representation of this machine's IPv4 address, or empty string if offline</returns>
         public static String GetLocalIPV4()
         {
             string localIP = "";
