@@ -19,23 +19,27 @@
 #define SB_R 35
 
 // Car specific (mm) (CHANGE!)
-#define WHEEL_CIRCUM 60
-#define COUNT_PER_REV 100
+#define WHEEL_CIRCUM (65 * PI)
+#define COUNT_PER_REV 120
 #define MOTOR_OFFSET 5
 
 // Ultra-Sonic sensors
 #define SEN_FRONT_TRIG 16
 #define SEN_FRONT_ECHO 4
 
+#define SEN_RIGHT_TRIG 14
+#define SEN_RIGHT_ECHO 12
 
+#define SEN_LEFT_TRIG 26
+#define SEN_LEFT_ECHO 27
 // Server config
 // Port to listen for connection
 // See https://docs.oracle.com/javase/tutorial/networking/sockets/definition.html
 #define TCP_PORT 12345
 
 // WiFi configuration
-static const char *wfName = "LINT";         // Your Wi-Fi name
-static const char *wfPass = "wassup123";    // Your Wi-Fi password
+static const char *wfName = "SU-ECE-Lab";         // Your Wi-Fi name
+static const char *wfPass = "B9fmvrfe";    // Your Wi-Fi password
 
 // InsCode Definition
 // InsCode are all instruction send by remote client (i.e. App)
@@ -53,7 +57,10 @@ static const char *wfPass = "wassup123";    // Your Wi-Fi password
 
 #define INS_UPDATE "UPDATE"
 
-#define INIT_SPEED 200
+#define INIT_SPEED 170
+
+#define MIN_DIS_WALL 5
+#define MIN_DIS_MOVE 25
 // Direction is an abstraction for the direction of motors
 // There are 3 states for the car's Direction
 //  1. Forward: State where motors roll forward (relative)
@@ -84,20 +91,44 @@ volatile unsigned long enc_l;  // Num ticks left motor
 volatile unsigned long enc_r;  // Num ticks right motor
 
 UltraSonicDistanceSensor sensor_front(SEN_FRONT_TRIG, SEN_FRONT_ECHO);
-int avg_front_dis = 0;
-int front_samples = 0;
-
+UltraSonicDistanceSensor sensor_right(SEN_RIGHT_TRIG, SEN_RIGHT_ECHO);
+UltraSonicDistanceSensor sensor_left(SEN_LEFT_TRIG, SEN_LEFT_ECHO);
 void setup() {
   Serial.begin(115200);   // for Serial output
   Serial.println("Awake");
-  WiFiInitialize();     // Initialize the WiFi module
+  // WiFiInitialize();     // Initialize the WiFi module
   NodeMCUInitialize();  // Initialize the pins
   Initialize();         // Initialize data structures
   Serial.println("Initialization completed");
-  //forward(100);
 
-  while (true) {
-    MoveUntiilWall();
+while (true) {
+  int val = sensor_front.measureDistanceCm();
+  if (val > MIN_DIS_MOVE) {
+    forward(2);
+  } else {
+    while (val <= MIN_DIS_WALL) {
+      UpdateCurSpeed();
+      SetBackward();
+      delay(20);
+      val = sensor_front.measureDistanceCm();
+      Brake();
+    }
+      val = sensor_left.measureDistanceCm();
+      if (val >= MIN_DIS_MOVE) {
+        SetMotorEx(LEFT_BACKWARD, RIGHT_FORWARD, 0, Manager->Speed);
+        delay(300);
+        Brake();
+      } else if (sensor_right.measureDistanceCm() >= MIN_DIS_MOVE) {
+        SetMotorEx(LEFT_FORWARD, RIGHT_BACKWARD, Manager->Speed, 0);
+        delay(300);
+        Brake();
+      } else {
+        UpdateCurSpeed();
+        SetBackward();
+        delay(100);
+        Brake();
+      }
+    }
   }
   
 }
@@ -152,18 +183,26 @@ void Initialize() {
     Serial.println("Not enough RAM");
     return;
   }
-  Manager->Speed = INIT_SPEED;
+  Manager->Speed = 170;
   Manager->DIR = Direction::NONE;
 }
 
 void MoveUntiilWall() {
-  bool outlier = false;
     int dis = sensor_front.measureDistanceCm();
-    while (dis > 20) {
-      forward(2);
+    while (dis > 30) {
+      forward(5);
       dis = sensor_front.measureDistanceCm();
     }
     Serial.println("done");
+}
+
+void RotateLeft() {
+  int target = 250;
+  enc_r = 0;
+  while (enc_r < target) {
+    SetMotorEx(LEFT_FORWARD, RIGHT_FORWARD, 0, Manager->Speed);
+  }
+  Brake();
 }
 
 // From Fred Bot
@@ -187,8 +226,9 @@ void forward(float dist) {
   unsigned long enc_l_prev = enc_l;
   unsigned long enc_r_prev = enc_r;
 
+  bool stuck = false;
   // Calculate target number of ticks
-  float num_rev = (dist * 10) / WHEEL_CIRCUM;  // Convert to mm
+  float num_rev = (dist * 10) / (WHEEL_CIRCUM);  // Convert to mm
   unsigned long target_count = num_rev * COUNT_PER_REV;
   
   // Debug
@@ -200,17 +240,8 @@ void forward(float dist) {
 
   // Drive until one of the encoders reaches desired count
   while ( (enc_l < target_count) && (enc_r < target_count) ) {
-    int dis = sensor_front.measureDistanceCm();
-    if (dis <= 10) {
-      break;
-    }
     num_ticks_l = enc_l;
     num_ticks_r = enc_r;
-
-    // Print out current number of ticks
-    Serial.print(num_ticks_l);
-    Serial.print("\t");
-    Serial.println(num_ticks_r);
 
     // Drive
     drive(power_l, power_r);
@@ -264,8 +295,6 @@ void drive(int power_l, int power_r) {
 }
 
 void loop() {
-  //Serial.println(sensor_front.measureDistanceCm());
-  //delay(20);
   WiFiClient c = Server.available();
   if (c) {
     // There is a connection
@@ -275,9 +304,6 @@ void loop() {
         // 2. As soon as we reach the end of instruction (by seeing \r), we handle the instruction
         String data = c.readStringUntil('\r');
         InterpretIns(data); 
-      }
-      if (Manager->DIR != Direction::NONE && !CanMoveForward()) {
-        Brake();
       }
       // Go back to 1 if client is still online
     }
@@ -353,8 +379,12 @@ void UpdateCurSpeed() {
 void Brake() {
   ledcWrite(0, 0);
   ledcWrite(1, 0);
+  digitalWrite(DIR_L, LEFT_BACKWARD);
+  digitalWrite(DIR_R, RIGHT_BACKWARD);
+  Manager->DIR = Direction::NONE;
 }
 
 bool CanMoveForward() {
-  return true;
+  int val = sensor_front.measureDistanceCm();
+  return (val > 10);
 }
