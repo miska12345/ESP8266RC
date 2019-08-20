@@ -34,9 +34,9 @@
 #define SEN_LEFT_ECHO 27
 
 #define SPEED 160
-
+   
 #define MIN_DIS_WALL 5
-#define MIN_DIS_MOVE 15 
+#define MIN_DIS_MOVE 16
 
 #define LEFT_FORWARD HIGH
 #define LEFT_BACKWARD LOW
@@ -137,20 +137,23 @@ void forward() {
         flag = true;
       } else {
         BackUnStuck();
+        break;
       }
-    }
-    if (enc_l_prev == num_ticks_l) {
+    } else if (enc_l_prev == num_ticks_l) {
       if (!flag) {
         flag = true;
       } else {
         LeftUnStuck();
+        enc_l_prev = num_ticks_l - diff_l;
+        enc_r_prev = num_ticks_r - diff_r;
       }
-    }
-    if (enc_r_prev == num_ticks_r) {
+    }else if (enc_r_prev == num_ticks_r) {
       if (!flag) {
         flag = true;
       } else {
         RightUnStuck();
+        enc_l_prev = num_ticks_l - diff_l;
+        enc_r_prev = num_ticks_r - diff_r;
       }
     }
 
@@ -184,7 +187,7 @@ void LeftUnStuck() {
   unsigned long pre = millis();
   while (sensor_left.measureDistanceCm() < MIN_DIS_MOVE) {
     unsigned long cur = millis();
-    if (cur - pre > 3 * 1000) {
+    if (cur - pre > 5 * 1000) {
       break;
     }
     SetMotorEx(LEFT_BACKWARD, RIGHT_BACKWARD, 0, SPEED);
@@ -195,7 +198,7 @@ void RightUnStuck() {
   unsigned long pre = millis();
   while (sensor_right.measureDistanceCm() < MIN_DIS_MOVE) {
     unsigned long cur = millis();
-    if (cur - pre > 3 * 1000) {
+    if (cur - pre > 5 * 1000) {
       break;
     }
     SetMotorEx(LEFT_BACKWARD, RIGHT_FORWARD, SPEED, 0);
@@ -206,10 +209,10 @@ void BackUnStuck() {
   unsigned long pre = millis();
   while (sensor_front.measureDistanceCm() < MIN_DIS_MOVE) {
     unsigned long cur = millis();
-    if (cur - pre > 3 * 1000) {
+    if (cur - pre > 2 * 1000) {
       break;
     }
-    SetMotorEx(LEFT_BACKWARD, RIGHT_FORWARD, SPEED, SPEED);
+    SetMotorEx(LEFT_BACKWARD, RIGHT_BACKWARD, SPEED, SPEED);
   }
 }
 
@@ -259,16 +262,6 @@ void drive(int power_l, int power_r) {
 }
 
 void loop() {
-  
-  int val_f = sensor_front.measureDistanceCm();
-  Serial.printf("front: %d ", val_f);
-
-  int val_l = sensor_left.measureDistanceCm();
-  Serial.printf("left: %d ", val_l);
-
-  int val_r = sensor_right.measureDistanceCm();
-  Serial.printf("right: %d\n", val_r);
-
   forward();
 }
 
